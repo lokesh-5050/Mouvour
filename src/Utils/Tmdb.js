@@ -1,0 +1,1 @@
+export default API_KEY_TMDB = "d978e8b4d35276a656ae12c2c4892803";
