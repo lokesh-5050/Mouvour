@@ -16,7 +16,7 @@ function App() {
         <Route path='/' element={<SharedHomePage />}>
           <Route index element={<Welcome setSearchText={setSearchText} searchText={searchText} movieData={movieData} setmovieData={setmovieData}/>} />
           <Route path='movies' element={<SharedSingleMoviePage/>}>
-            <Route path=':id' element={<SingleMovie movieData={movieData}/>}/>
+            <Route path=':id' element={<SingleMovie />}/>
           </Route>
           <Route path='topRated' element={<TopRatedMovies/>}/>
           <Route path='*' element={<ErrorPage />} />
