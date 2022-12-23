@@ -3,3 +3,17 @@
     height: 100%;
     object-fit: cover;
 }
+
+@media screen and (max-device-width: 640px) {
+    .upperOne{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    /* .posterMov>img{
+        width: 40vw;
+        height: 100vw;
+        position: relative;
+        top: 120vw;
+    } */
+  }

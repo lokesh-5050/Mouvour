@@ -35,7 +35,7 @@ const SingleMovie = () => {
 
 
     let renderMovieData = clickedMovieData?.id ? (<div className="box p-4" key={clickedMovieData.id}>
-        <div className="d-flex gap-5" >
+        <div className="d-flex gap-5 upperOne" >
             {movieVideo?.length > 0 ? movieVideo.map((f) => (
                 <video src={`https://www.youtube.com/watch?v=${f.key}`} autoPlay loop muted height={'310rem'} key={f.id} alt="he"></video>
             )) : (<div className='no_video text-center p-5' style={{ width: "50vw" }}>Can't load the video</div>)}
@@ -86,7 +86,7 @@ const SingleMovie = () => {
                 </div>
             </div>
         </div>
-        <div className="contaier text-center  position-absolute" style={{ width: "17vw", height: "23vw", top: "30vw", left: "10vw" }}>
+        <div className="contaier text-center  bg-warning posterMov" style={{position:'absolute',  width: "17vw", height: "23vw", top: "30vw", left: "10vw" }}>
             <h2>Poster</h2>
             <div className="container single_poster" style={{ width: "17vw", height: "20vw" }}>
                 <img src={`https://image.tmdb.org/t/p/original/${clickedMovieData.poster_path}`} alt="" />
