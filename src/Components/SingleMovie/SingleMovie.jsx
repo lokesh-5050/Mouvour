@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import Video from '../../Utils/lake.mp4'
 import { useParams } from 'react-router-dom'
 import { StarFill } from 'react-bootstrap-icons'
 import '../SingleMovie/SingleMovie.css'
