@@ -1,14 +1,21 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { StarFill, ArrowLeftCircle } from 'react-bootstrap-icons'
 import '../SingleMovie/SingleMovie.css'
 import { DotWave } from '@uiball/loaders';
-const SingleMovie = () => {
+const SingleMovie = ({goTohome,goToTopRated,goToUpcoming,goToDiscover}) => {
     const [clickedMovieData, setClickedMovieData] = useState([]);
     const [movieVideo, setMovieVideo] = useState([])
     let { id } = useParams();
     console.log(id);
+
+    const Naviagte = useNavigate();
+
+    const goBack = ()=>{
+        {goTohome||goToDiscover||goToTopRated||goToUpcoming ? Naviagte(goTohome||goToDiscover||goToTopRated||goToUpcoming):'/'}
+    }
+
 
     let thisMovieData = async () => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
@@ -45,8 +52,7 @@ const SingleMovie = () => {
                     {clickedMovieData.genres.map((g) => (
                         <em className='p-1' key={g.id} style={{ backgroundColor: "lightgray", borderRadius: '10px' }}>{g.name}</em>
                     ))}
-                    {/* <em>Genere</em>
-                       <em>Genere</em> */}
+                    
                 </div>
                 <h4 className=' mt-2 mb-4'>Budget : {clickedMovieData.budget} $ </h4>
                 <h5 className='mb-3'>Overview</h5>
@@ -107,14 +113,15 @@ const SingleMovie = () => {
     //     setMovieVideo(results);
     // }
 
+    
 
     return (
         <>
-            <Link to='/'>
-                <div className="back position-absolute">
+            {/* <Link to='/'> */}
+                <div onClick={goBack} className="back position-absolute">
                     <ArrowLeftCircle fontSize={"2.5vw"} className='mt-2' />
                 </div>
-            </Link>
+            {/* </Link> */}
 
             {renderMovieData}
 
