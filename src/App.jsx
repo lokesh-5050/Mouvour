@@ -23,7 +23,10 @@ function App() {
             <Route path='toprated' element={<TopRatedMovies toprated="toprated" loader={loader} setLoader={setLoader} />} />
             <Route path='toprated/:id' element={<SingleMovie />} />
             <Route path='upcoming' element={<UpcomingMovies loader={loader} upcoming="upcoming" setLoader={setLoader} />} />
+            <Route path='upcoming/:id' element={<SingleMovie />} />
             <Route path='discover' element={<DiscoverMovies loader={loader} discover="discover" setLoader={setLoader} />} />
+            <Route path='discover/:id' element={<SingleMovie />} />
+
 
           </Route>
           {/* <Route path='movies/toprated' element={<SharedTopRatedMoviePage />}>
