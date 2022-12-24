@@ -1,3 +1,4 @@
+import { DotSpinner } from '@uiball/loaders';
 import React from 'react'
 import { Link } from 'react-router-dom'
 const Movie = ({ data, search, toprated , upcoming ,discover }) => {
@@ -35,7 +36,7 @@ const Movie = ({ data, search, toprated , upcoming ,discover }) => {
             </svg>
           </div>
         </Link>
-      ))) : 'no data'}
+      ))) : (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><DotSpinner/></div></div>)}
     </>
   )
 }

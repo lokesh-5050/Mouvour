@@ -56,7 +56,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData , loader ,
     <>
 
       <div className="container" style={{ position: 'relative', top: '1vw' }}>
-        <div className="container text-center w-50">
+        <div className="container title_Welcome text-center w-50">
           <h3>Welcome To Mouvour</h3>
           <h6 >Search for Movies and see Their Reviews.</h6>
           <form className='container mt-2' onSubmit={handleSearch}>
@@ -78,7 +78,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData , loader ,
           {/* {showMovies} */}
           {/* {movieData?.length > 0 ? <Movie movieData={movieData}/> : 'l'} */}
 
-          {loader ? (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><DotSpinner/></div></div>) : <Movie search="search"  data={movieData}/>}
+          {loader ? (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><h4>Search Movies...</h4></div></div>) : <Movie search="search"  data={movieData}/>}
 
 
         </div>
