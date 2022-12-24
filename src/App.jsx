@@ -4,9 +4,11 @@ import reactLogo from './assets/react.svg'
 import Welcome from './Components/Welcome/Welcome'
 import ErrorPage from './Pages/ErrorPage'
 import SharedHomePage from './Pages/SharedHomePage'
-import TopRatedMovies from './Components/TopRated/TopRatedMovies'
+import TopRatedMovies from './Components/MoviesSections/TopRatedMovies'
 import SingleMovie from './Components/SingleMovie/SingleMovie'
 import SharedMoviesPage from './Pages/SharedMoviesPage'
+import UpcomingMovies from './Components/MoviesSections/UpcomingMovies'
+import DiscoverMovies from './Components/MoviesSections/DiscoverMovies'
 function App() {
   const [movieData, setmovieData] = useState([]);
   const [searchText, setSearchText] = useState('')
@@ -20,7 +22,8 @@ function App() {
             <Route path='search/:id' element={<SingleMovie />} />
             <Route path='toprated' element={<TopRatedMovies toprated="toprated" loader={loader} setLoader={setLoader} />} />
             <Route path='toprated/:id' element={<SingleMovie />} />
-            <Route path='upcoming' element={<TopRatedMovies loader={loader} setLoader={setLoader} />} />
+            <Route path='upcoming' element={<UpcomingMovies loader={loader} upcoming="upcoming" setLoader={setLoader} />} />
+            <Route path='discover' element={<DiscoverMovies loader={loader} discover="discover" setLoader={setLoader} />} />
 
           </Route>
           {/* <Route path='movies/toprated' element={<SharedTopRatedMoviePage />}>
