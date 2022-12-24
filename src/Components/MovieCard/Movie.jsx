@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const Movie = ({ data, search, toprated , upcoming }) => {
+const Movie = ({ data, search, toprated , upcoming ,discover }) => {
 
 
   if (toprated) {
@@ -16,7 +16,7 @@ const Movie = ({ data, search, toprated , upcoming }) => {
   return (
     <>
       {data?.length > 0 ? (data.map((e, i) => (
-        <Link to={`/movies/${search||toprated||upcoming ? search||toprated||upcoming : ''}/${e.id}`} key={e.id}>
+        <Link to={`/movies/${search||toprated||upcoming||discover ? search||toprated||upcoming||discover : ''}/${e.id}`} key={e.id}>
           <div className="movie_slot" key={e.id}>
             <div className="poster">
               <img src={`https://image.tmdb.org/t/p/original/${e.poster_path}`} style={{ width: "14vw" }} alt="image" />
