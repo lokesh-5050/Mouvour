@@ -78,7 +78,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData , loader ,
           {/* {showMovies} */}
           {/* {movieData?.length > 0 ? <Movie movieData={movieData}/> : 'l'} */}
 
-          {loader ? (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><DotSpinner/></div></div>) : <Movie movieData={movieData}/>}
+          {loader ? (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><DotSpinner/></div></div>) : <Movie search="search"  data={movieData}/>}
 
 
         </div>

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-const SharedTopRatedMoviePage = () => {
+const SingleMoviePage = () => {
   return (
     <>
+        
         <Outlet/>
     </>
   )
 }
 
-export default SharedTopRatedMoviePage
+export default SingleMoviePage
