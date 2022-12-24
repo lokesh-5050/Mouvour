@@ -1,0 +1,11 @@
+@media screen and (max-device-width: 640px) {
+    #potser_img{
+        margin-left: 6vw;
+    }
+   
+  }
+/* 
+#potser_img{
+    /* width: 35vmax; */
+    /* border: 2px solid red; */
+/* } */ 

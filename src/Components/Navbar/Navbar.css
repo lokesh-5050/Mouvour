@@ -1,0 +1,8 @@
+@media screen and (max-device-width: 640px) {
+    .title{
+      margin-left: 35%;
+    }
+    .items{
+      margin-left: 10vw;
+    }
+  }

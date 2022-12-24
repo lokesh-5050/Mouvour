@@ -1,6 +1,7 @@
 import { DotSpinner } from '@uiball/loaders';
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../MovieCard/Movie.css'
 const Movie = ({ data, search, toprated , upcoming ,discover }) => {
 
 
@@ -20,7 +21,7 @@ const Movie = ({ data, search, toprated , upcoming ,discover }) => {
         <Link to={`/movies/${search||toprated||upcoming||discover ? search||toprated||upcoming||discover : ''}/${e.id}`} key={e.id}>
           <div className="movie_slot" key={e.id}>
             <div className="poster">
-              <img src={`https://image.tmdb.org/t/p/original/${e.poster_path}`} style={{ width: "14vw" }} alt="image" />
+              <img id='potser_img' src={`https://image.tmdb.org/t/p/original/${e.poster_path}`} style={{ width: "24vmin" }} alt="image" />
             </div>
             <h4 className='container l-3 mt-2 title'>{e.original_title}</h4>
             <h6 className='container l-3'>{e.release_date}</h6>
