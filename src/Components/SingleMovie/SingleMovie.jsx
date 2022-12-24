@@ -86,7 +86,7 @@ const SingleMovie = () => {
                 </div>
             </div>
         </div>
-        <div className="contaier text-center posterMov" style={{position:'absolute',  width: "17vw", height: "23vw", top: "30vw", left: "10vw" }}>
+        <div className="contaier text-center posterMov" style={{ position: 'absolute', width: "17vw", height: "23vw", top: "30vw", left: "10vw" }}>
             <h2>Poster</h2>
             <div className="container single_poster" style={{ width: "17vw", height: "20vw" }}>
                 <img src={`https://image.tmdb.org/t/p/original/${clickedMovieData.poster_path}`} alt="" />
