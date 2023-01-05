@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import '../Welcome/Welcome.css';
 import Axios from 'axios'
 import { DotSpinner, DotWave } from '@uiball/loaders'
@@ -7,9 +7,15 @@ import Movie from '../MovieCard/Movie';
 const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, setLoader, suggestions, setSuggestions }) => {
 
   const [showingDataFor, setShowingDataFor] = useState('')
+  const inputMovieRef = useRef(null)
+  const formSubmtBtn = useRef(null)
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setSuggestions([])
+
+
+    console.log('through search enter form submit');
     setSearchText('')
     setShowingDataFor(searchText)
     if (!movieData.length) {
@@ -23,6 +29,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     console.log(results);
     setmovieData(results);
     setLoader(false)
+
   }
 
 
@@ -61,10 +68,22 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   const onTypeSearchMovie = async (e) => {
     setSearchText(e.target.value)
-    setTimeout(() => {
-      delayedSuggestion()
-    }, 1500);
+    console.log(inputMovieRef.current.value.length);
+    if (inputMovieRef.current.value.length > 2) {
+      setTimeout(() => {
+        delayedSuggestion()
+      }, 900);
+    } else if (inputMovieRef.current.value.length == 0) {
+      setSuggestions([])
+    }
 
+
+  }
+
+  const searchBySuggestion = (e) => {
+    console.log(e.target.innerHTML);
+    setSearchText(e.target.innerHTML)
+    handleSearch(e)
   }
 
 
@@ -76,18 +95,18 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
           <h3>Welcome To Mouvour</h3>
           <h6 >Search for Movies and see Their Reviews.</h6>
           <form className='container mt-2' onSubmit={handleSearch}>
-            <input type="text" value={searchText} onChange={(e) => onTypeSearchMovie(e)} className={`form-control movInp mt-2 `} placeholder='Search Movie Name...' />
+            <input ref={inputMovieRef} type="text" value={searchText} onChange={(e) => onTypeSearchMovie(e)} className={`form-control movInp mt-2 `} placeholder='Search Movie Name...' />
             {/* suggestions section starts */}
-            <div className="suggestions d-flex flex-column gap-1 text-start" style={{maxHeight:"10vw", overflow:"hidden", overflowY:'scroll'}}>
-            {suggestions.map((e)=>(
-              <div className="list mt-2 bg-warning rounded" >
-                <h6 className='mx-2 mt-1'>{e.original_title}</h6>
-              </div>
-            ))}
-              
+            <div className="suggestions text-start position-absolute " style={{ maxHeight: "10vw", minWidth: "38rem", overflow: "hidden", overflowY: 'scroll', marginLeft: "0vw" }}>
+              {suggestions.length > 0 ? suggestions.map((e, i) => (
+                <div className="list mt-2" key={i} >
+                  <h6 onClick={(e) => searchBySuggestion(e)} className='mx-2 mt-1 p-1' style={{ backgroundColor: '#dbd5d5' }}>{e.original_title}</h6>
+                </div>
+              )) : ''}
+
             </div>
             {/* suggestions section ends */}
-            <button className="btn-dark btn mt-3">Search</button>
+            <button ref={formSubmtBtn} className="btn-dark btn mt-3">Search</button>
           </form>
         </div>
 
