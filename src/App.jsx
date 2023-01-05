@@ -13,11 +13,12 @@ function App() {
   const [movieData, setmovieData] = useState([]);
   const [searchText, setSearchText] = useState('')
   const [loader, setLoader] = useState(true)
+  const [suggestions, setSuggestions] = useState([])
   return (
     <Router>
       <Routes>
         <Route path='/' element={<SharedHomePage />}>
-          <Route index element={<Welcome setSearchText={setSearchText} searchText={searchText} movieData={movieData} setmovieData={setmovieData} loader={loader} setLoader={setLoader} />} />
+          <Route index element={<Welcome setSearchText={setSearchText} searchText={searchText} movieData={movieData} setmovieData={setmovieData} loader={loader} setLoader={setLoader} suggestions={suggestions}  setSuggestions={setSuggestions}/>} />
           <Route path='movies' element={<SharedMoviesPage />}>
             <Route path='search/:id' element={<SingleMovie goTohome="/" />} />
             <Route path='toprated' element={<TopRatedMovies toprated="toprated" loader={loader} setLoader={setLoader} />} />

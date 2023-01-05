@@ -4,7 +4,7 @@ import Axios from 'axios'
 import { DotSpinner, DotWave } from '@uiball/loaders'
 import { Link } from 'react-router-dom';
 import Movie from '../MovieCard/Movie';
-const Welcome = ({ setSearchText, searchText, movieData, setmovieData , loader , setLoader }) => {
+const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, setLoader, suggestions, setSuggestions }) => {
 
   const [showingDataFor, setShowingDataFor] = useState('')
 
@@ -51,6 +51,22 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData , loader ,
   //   </Link>
   // ))
 
+  const delayedSuggestion = async () => {
+    let query = searchText;
+    const { data } = await Axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
+    const { results } = data
+    setSuggestions(results)
+
+  }
+
+  const onTypeSearchMovie = async (e) => {
+    setSearchText(e.target.value)
+    setTimeout(() => {
+      delayedSuggestion()
+    }, 1500);
+
+  }
+
 
   return (
     <>
@@ -60,7 +76,17 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData , loader ,
           <h3>Welcome To Mouvour</h3>
           <h6 >Search for Movies and see Their Reviews.</h6>
           <form className='container mt-2' onSubmit={handleSearch}>
-            <input type="text" value={searchText} onChange={(e) => setSearchText(e.target.value)} className={`form-control movInp mt-2 `} placeholder='Search Movie Name...' />
+            <input type="text" value={searchText} onChange={(e) => onTypeSearchMovie(e)} className={`form-control movInp mt-2 `} placeholder='Search Movie Name...' />
+            {/* suggestions section starts */}
+            <div className="suggestions d-flex flex-column gap-1 text-start" style={{maxHeight:"10vw", overflow:"hidden", overflowY:'scroll'}}>
+            {suggestions.map((e)=>(
+              <div className="list mt-2 bg-warning rounded" >
+                <h6 className='mx-2 mt-1'>{e.original_title}</h6>
+              </div>
+            ))}
+              
+            </div>
+            {/* suggestions section ends */}
             <button className="btn-dark btn mt-3">Search</button>
           </form>
         </div>
@@ -78,7 +104,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData , loader ,
           {/* {showMovies} */}
           {/* {movieData?.length > 0 ? <Movie movieData={movieData}/> : 'l'} */}
 
-          {loader ? (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><h4>Search Movies...</h4></div></div>) : <Movie search="search"  data={movieData}/>}
+          {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><h4>Search Movies...</h4></div></div>) : <Movie search="search" data={movieData} />}
 
 
         </div>
