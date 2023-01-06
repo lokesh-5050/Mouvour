@@ -12,6 +12,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setSuggestions([])
     console.log(searchText);
     setShowingDataFor(inputMovieRef.current.value)
     if (!movieData.length) {
@@ -25,7 +26,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     console.log(results);
     setmovieData(results);
     setLoader(false)
-    setSuggestions([])
+    
     setSearchText('')
 
   }
