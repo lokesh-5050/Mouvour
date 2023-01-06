@@ -12,23 +12,21 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    setSuggestions([])
-
-
-    console.log('through search enter form submit');
-    setSearchText('')
-    setShowingDataFor(searchText)
+    console.log(searchText);
+    setShowingDataFor(inputMovieRef.current.value)
     if (!movieData.length) {
       console.log("no length");
       // showMovies = <DotWave />
     }
-    let query = searchText;
+    let query = inputMovieRef.current.value;
     setLoader(true)
     const { data } = await Axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
     const { results } = data
     console.log(results);
     setmovieData(results);
     setLoader(false)
+    setSuggestions([])
+    setSearchText('')
 
   }
 
@@ -68,7 +66,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   const onTypeSearchMovie = async (e) => {
     setSearchText(e.target.value)
-    console.log(inputMovieRef.current.value.length);
+    // console.log(inputMovieRef.current.value.length);
     if (inputMovieRef.current.value.length > 2) {
       setTimeout(() => {
         delayedSuggestion()
@@ -80,10 +78,12 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   }
 
-  const searchBySuggestion = (e) => {
-    console.log(e.target.innerHTML);
-    setSearchText(e.target.innerHTML)
-    handleSearch(e)
+  const searchBySuggestion = async(f) => {
+    console.log(inputMovieRef.current.value);
+    inputMovieRef.current.value = f.target.innerHTML
+    console.log(searchText);
+    console.log(inputMovieRef.current.value);
+    handleSearch(f)
   }
 
 
@@ -99,8 +99,8 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
             {/* suggestions section starts */}
             <div className="suggestions text-start position-absolute " style={{ maxHeight: "10vw", minWidth: "38rem", overflow: "hidden", overflowY: 'scroll', marginLeft: "0vw" }}>
               {suggestions.length > 0 ? suggestions.map((e, i) => (
-                <div className="list mt-2" key={i} >
-                  <h6 onClick={(e) => searchBySuggestion(e)} className='mx-2 mt-1 p-1' style={{ backgroundColor: '#dbd5d5' }}>{e.original_title}</h6>
+                <div className="list mt-2" key={i} onClick={(e) => searchBySuggestion(e)}>
+                  <h6 className='mx-2 mt-1 p-1' style={{ backgroundColor: '#dbd5d5' }}>{e.original_title}</h6>
                 </div>
               )) : ''}
 

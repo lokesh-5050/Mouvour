@@ -66,8 +66,8 @@ const SingleMovie = ({goTohome,goToTopRated,goToUpcoming,goToDiscover}) => {
                     <div className="rev">
                         <h4 className='mt-2'>Ratings</h4>
                         <div className="stars d-flex gap-2">
-                            {forRating?.map((e) => (
-                                <h6 key={e.id}><StarFill color='black' /></h6>
+                            {forRating?.map((e,i) => (
+                                <h6 key={e.i}><StarFill color='black' /></h6>
                             ))}
                         </div>
                     </div>
