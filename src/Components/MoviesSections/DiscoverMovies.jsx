@@ -32,7 +32,7 @@ const DiscoverMovies = ({ loader, setLoader }) => {
   console.log(DiscoverMoviesData);
   return (
     <>
-    <div className="container d-flex gap-4 flex-wrap p-5">
+    <div className="container d-flex gap-4 flex-wrap" style={{padding:'3vw 2.2vw'}}>
     <div className="container text-center">
         <h4><span style={{color:'#0bb84d'}}>Discover </span> Movies Section</h4>
       </div>
