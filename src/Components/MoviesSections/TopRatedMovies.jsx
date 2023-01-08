@@ -32,13 +32,13 @@ const TopRatedMovies = ({ loader, setLoader }) => {
   console.log(topRatedMoviesData);
   return (
     <>
-    <div className="container TopRated d-flex gap-4 flex-wrap" style={{padding:'3vw 2.2vw'}}>
-      <div className="container text-center">
-        <h4><span style={{color:'#0bb84d'}}>Top-Rated </span> Movies Section</h4>
-      </div>
+      <div className="container TopRated d-flex gap-4 flex-wrap" style={{ padding: '3vw 2.2vw' }}>
+        <div className="container text-center">
+          <h4><span style={{ color: '#0bb84d' }}>Top-Rated </span> Movies Section</h4>
+        </div>
 
-      {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>) : <Movie data={topRatedMoviesData} toprated="toprated" />}
-    </div>
+        {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>) : <Movie data={topRatedMoviesData} toprated="toprated" />}
+      </div>
     </>
   )
 }

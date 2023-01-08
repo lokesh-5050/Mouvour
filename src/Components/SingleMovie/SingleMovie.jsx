@@ -170,7 +170,6 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
                 <img src={`https://image.tmdb.org/t/p/original/${clickedMovieData.poster_path}`} alt="" />
             </div> */}
             <div ref={castsDiv} className="container casts d-flex gap-4 " style={{ maxWidth: 'inherit', overflowX: 'scroll', }}>
-                <HorizontalScroll>
                     {credits?.length > 0 ? (credits.map((c) => (
 
                         <div className="cast" style={{ maxWidth: '11vmax', maxHeight: "20vmax" }}>
@@ -181,7 +180,6 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
                         </div>
                     ))) : 'Cant fetch credits'}
-                </HorizontalScroll>
 
             </div>
         </div>
