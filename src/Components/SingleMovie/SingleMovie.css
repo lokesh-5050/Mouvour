@@ -17,3 +17,6 @@
         top: 120vw;
     } 
   }
+*::-webkit-scrollbar{
+    display: none;
+}

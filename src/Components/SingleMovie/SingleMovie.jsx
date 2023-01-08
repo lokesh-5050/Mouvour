@@ -1,14 +1,17 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { StarFill, ArrowLeftCircle } from 'react-bootstrap-icons'
+import { StarFill, ArrowLeftCircle, ArrowRight } from 'react-bootstrap-icons'
 import '../SingleMovie/SingleMovie.css'
 import { DotWave } from '@uiball/loaders';
 import ReactPlayer from 'react-player/youtube'
+import {ScrollMenu} from 'react-horizontal-scrolling-menu'
 const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => {
     const [clickedMovieData, setClickedMovieData] = useState([]);
     const [movieVideo, setMovieVideo] = useState([])
     const [videoKey, setVideoKey] = useState('')
+    const [credits, setCredits] = useState([])
+    const castsDiv = useRef(null);
     let { id } = useParams();
     console.log(id);
 
@@ -36,10 +39,16 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
     }
 
+    const getCasts = async () => {
+        let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
+        let { cast } = data;
+        setCredits(cast);
+    }
+
     useEffect(() => {
         thisMovieData()
-        thisMovieVideo()
-
+        // thisMovieVideo()
+        getCasts()
         // fetchMovieVideos()
     }, [])
 
@@ -78,23 +87,16 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
     }
 
 
+    const castsScrollRight = () => {
+        castsDiv.current.scrollLeft = "1vw"
+        console.log("ru");
+    }
+
 
 
 
     let renderMovieData = clickedMovieData?.id ? (<div className="box p-4" key={clickedMovieData.id}>
         <div className="d-flex gap-5 upperOne" >
-            {/* {movieVideo?.length > 0 ? movieVideo.map((f) => (
-                <video src={`https://www.youtube.com/watch?v=${f.key}`} autoPlay loop muted height={'310rem'} key={f.id} alt="he"></video>
-            )) : (<div className='no_video text-center p-5' style={{ width: "50vw" }}>Can't load the video</div>)} */}
-
-            {/* <iframe id="ytplayer" type="text/html" width="640" height="360"
-                src="https://www.youtube.com/embed/BRb4U99OU80?autoplay=1&origin=http://http://127.0.0.1:5173/"
-                frameborder="0"></iframe> */}
-            {/* <iframe id="ytplayer" type="text/html" width="640" height="360"
-                src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&mute=1"
-                frameborder="0"></iframe> */}
-            {/* <YouTube videoId="CAWZMssP3gM" opts={opts}  onReady={(e) => onReady(e)} />
-             */}
             {videoKey.length > 0 ? <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} playsinline controls={true} muted={false} playing={true} width={660} height={350} style={{ marginLeft: "2vw" }} /> : <div className='loadingVideoDiv d-flex justify-content-center align-items-center' style={{ minWidth: "47.82223333333vw", minHeight: "10vw" }}>
                 <h4 style={{ height: "20vw" }}><DotWave /></h4>
             </div>}
@@ -105,14 +107,14 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
                     {clickedMovieData.genres.map((g) => (
                         <>
                             <em className='p-1' key={g.id} style={{ backgroundColor: "lightgray", borderRadius: '10px' }}>{g.name}</em>
-                            <svg viewBox="0 0 60 60" className="circular-chart position-absolute" style={{ top: '4.8vmax', left: '77vmax' }} >
+                            <svg viewBox="0 0 60 60" className="circular-chart position-absolute" style={{ top: '8.8vmax', left: '80vmax' }} >
                                 <path className="circle"
                                     strokeDasharray={`${clickedMovieData.vote_average * 10} , 100`}
                                     d="M18 2.0845
                     a 14.9155 14.9155 0 0 1 0 31.831
                     a 14.9155 14.9155 0 0 1 0 -31.831"
                                 />
-                                <text x="7.5" y="23" fontSize={"7.5px"} style={{fontStyle:'bold'}}>{(clickedMovieData.vote_average) * 10}%</text>
+                                <text x="7.5" y="23" fontSize={"7.5px"} style={{ fontStyle: 'bold' }}>{(clickedMovieData.vote_average) * 10}%</text>
                             </svg>
                         </>
 
@@ -158,26 +160,37 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
                 </div>
             </div>
         </div>
-        <div className="contaier text-center posterMov" style={{ position: 'absolute', width: "17vw", height: "23vw", top: "30vw", left: "10vw" }}>
-            <h2>Poster</h2>
-            <div className="container single_poster" style={{ width: "17vw", height: "20vw" }}>
+        <div className="contaier posterMov mt-3" style={{ position: 'absolute', width: "40vw", height: "23vw", top: "30vw", left: "4vw" }}>
+            <div className="container text-center">
+
+                <h4 style={{ marginLeft: '0' }}>Casts</h4>
+            </div>
+
+            {/* <div className="container single_poster" style={{ width: "17vw", height: "20vw" }}>
                 <img src={`https://image.tmdb.org/t/p/original/${clickedMovieData.poster_path}`} alt="" />
+            </div> */}
+            <div ref={castsDiv} className="container casts d-flex gap-4 " style={{ maxWidth: 'inherit', overflowX: 'scroll', }}>
+                <HorizontalScroll>
+                    {credits?.length > 0 ? (credits.map((c) => (
+
+                        <div className="cast" style={{ maxWidth: '11vmax', maxHeight: "20vmax" }}>
+                            <div className="img" >
+                                <img height={"240vw"} src={`https://image.tmdb.org/t/p/original/${c.profile_path}`} alt="casts" />
+                            </div>
+                            <h6>{c.name} <br /> <em>{c.character}</em> </h6>
+
+                        </div>
+                    ))) : 'Cant fetch credits'}
+                </HorizontalScroll>
+
             </div>
         </div>
     </div>) : 'no data'
 
 
 
-    // let fetchMovieVideos = async () => {
-    //     let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=d978e8b4d35276a656ae12c2c4892803`, {
-    //         headers: {
-    //             'Content-Type': 'application/json;  ',
-    //             'Access-Control-Allow-Origin': '*' // Could work and fix the previous problem, but not in all APIs
-    //         }
-    //     })
-    //     console.log(results);
-    //     setMovieVideo(results);
-    // }
+
+
 
 
 
