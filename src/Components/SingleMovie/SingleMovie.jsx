@@ -73,8 +73,8 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
     const findKey = async () => {
         let got = movieVideo.filter((e) => e.type === "Trailer")
-        console.log(got[1].key);
-        setVideoKey(got[1].key)
+        console.log(got[0].key);
+        setVideoKey(got[0].key)
     }
 
 
@@ -95,7 +95,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
                 frameborder="0"></iframe> */}
             {/* <YouTube videoId="CAWZMssP3gM" opts={opts}  onReady={(e) => onReady(e)} />
              */}
-             <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} playing={true} width={640} height={350} style={{marginLeft:"2vw"}}  />
+             <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} controls={true} muted={true} playing={true} width={640} height={350} style={{marginLeft:"2vw"}}  />
             <div className="info">
                 <h3 className='mt-3 mb-3'>{clickedMovieData.title}</h3>
                 <div className="genre d-flex gap-3 mb-3">
