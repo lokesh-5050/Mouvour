@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { StarFill, ArrowLeftCircle } from 'react-bootstrap-icons'
 import '../SingleMovie/SingleMovie.css'
-// import { DotWave } from '@uiball/loaders';
+import { DotWave } from '@uiball/loaders';
 import ReactPlayer from 'react-player/youtube'
 const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => {
     const [clickedMovieData, setClickedMovieData] = useState([]);
@@ -69,7 +69,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
     setTimeout(() => {
         findKey()
-    }, 2000);
+    }, 900);
 
     const findKey = async () => {
         let got = movieVideo.filter((e) => e.type === "Trailer")
@@ -82,7 +82,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
 
     let renderMovieData = clickedMovieData?.id ? (<div className="box p-4" key={clickedMovieData.id}>
-        <div className="d-flex gap-5 upperOne" >
+        <div className="d-flex gap-5 upperOne bg-warning" >
             {/* {movieVideo?.length > 0 ? movieVideo.map((f) => (
                 <video src={`https://www.youtube.com/watch?v=${f.key}`} autoPlay loop muted height={'310rem'} key={f.id} alt="he"></video>
             )) : (<div className='no_video text-center p-5' style={{ width: "50vw" }}>Can't load the video</div>)} */}
@@ -95,7 +95,10 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
                 frameborder="0"></iframe> */}
             {/* <YouTube videoId="CAWZMssP3gM" opts={opts}  onReady={(e) => onReady(e)} />
              */}
-             <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} playsinline controls={true} muted={true} playing={true} width={640} height={350} style={{marginLeft:"2vw"}}  />
+             {videoKey.length > 0 ? <ReactPlayer url={`https://www.youtube.com/watch?v=${videoKey}`} playsinline controls={true} muted={false} playing={true} width={660} height={350} style={{marginLeft:"2vw"}}  />: <div className='loadingVideoDiv d-flex justify-content-center align-items-center' style={{minWidth:"47.82223333333vw", minHeight:"10vw"}}>
+                <h4 style={{height:"20vw"}}><DotWave/></h4>
+             </div>}
+             
             <div className="info">
                 <h3 className='mt-3 mb-3'>{clickedMovieData.title}</h3>
                 <div className="genre d-flex gap-3 mb-3">
