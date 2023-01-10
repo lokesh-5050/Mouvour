@@ -47,9 +47,8 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
     useEffect(() => {
         thisMovieData()
-        // thisMovieVideo()
+        thisMovieVideo()
         getCasts()
-        // fetchMovieVideos()
     }, [])
 
     // console.log(clickedMovieData);
