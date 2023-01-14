@@ -5,7 +5,7 @@ import { StarFill, ArrowLeftCircle, ArrowRight } from 'react-bootstrap-icons'
 import '../SingleMovie/SingleMovie.css'
 import { DotWave } from '@uiball/loaders';
 import ReactPlayer from 'react-player/youtube'
-import {ScrollMenu} from 'react-horizontal-scrolling-menu'
+import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => {
     const [clickedMovieData, setClickedMovieData] = useState([]);
     const [movieVideo, setMovieVideo] = useState([])
@@ -51,25 +51,11 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
         getCasts()
     }, [])
 
-    // console.log(clickedMovieData);
-
     let forRating = []
-    // console.log(forRating);
-    // forRating.length = 
 
     for (let i = 0; i < [Math.round(Math.round(clickedMovieData?.vote_average / 2))]; i++) {
         forRating[i] = i
     }
-    // console.log(forRating);
-
-    const opts = {
-        height: '350',
-        width: '440',
-        playerVars: {
-            // https://developers.google.com/youtube/player_parameters
-            autoplay: 1,
-        },
-    };
 
     const onReady = (e) => {
         e.target.playVideo()
@@ -158,6 +144,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
                     </div>
                 </div>
             </div>
+
         </div>
         <div className="contaier posterMov mt-3" style={{ position: 'absolute', width: "40vw", height: "23vw", top: "30vw", left: "4vw" }}>
             <div className="container text-center">
@@ -169,18 +156,24 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
                 <img src={`https://image.tmdb.org/t/p/original/${clickedMovieData.poster_path}`} alt="" />
             </div> */}
             <div ref={castsDiv} className="container casts d-flex gap-4 " style={{ maxWidth: 'inherit', overflowX: 'scroll', }}>
-                    {credits?.length > 0 ? (credits.map((c) => (
+                {credits?.length > 0 ? (credits.map((c) => (
 
-                        <div className="cast" style={{ maxWidth: '11vmax', maxHeight: "20vmax" }}>
-                            <div className="img" >
-                                <img height={"240vw"} src={`https://image.tmdb.org/t/p/original/${c.profile_path}`} alt="casts" />
-                            </div>
-                            <h6>{c.name} <br /> <em>{c.character}</em> </h6>
-
+                    <div className="cast" style={{ maxWidth: '11vmax', maxHeight: "20vmax" }}>
+                        <div className="img" >
+                            <img height={"240vw"} src={`https://image.tmdb.org/t/p/original/${c.profile_path}`} alt="casts" />
                         </div>
-                    ))) : 'Cant fetch credits'}
+                        <h6>{c.name} <br /> <em>{c.character}</em> </h6>
+
+                    </div>
+                ))) : 'Cant fetch credits'}
 
             </div>
+        </div>
+        <div className="container position-absolute text-center" style={{top:'55vw'}} >
+            <button className="btn-primary btn" onClick={getSimilarMovies}>Get Similar Movies</button>
+        </div>
+        <div className="container position-absolute bg-warning" style={{top:'60vw'}}>
+            hey
         </div>
     </div>) : 'no data'
 
