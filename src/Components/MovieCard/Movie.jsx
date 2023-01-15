@@ -2,7 +2,7 @@ import { DotSpinner } from '@uiball/loaders';
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../MovieCard/Movie.css'
-const Movie = ({ data, search, toprated, upcoming, discover }) => {
+const Movie = ({ data, search, toprated, upcoming, discover, similar }) => {
 
 
   if (toprated) {
@@ -18,7 +18,7 @@ const Movie = ({ data, search, toprated, upcoming, discover }) => {
   return (
     <>
       {data?.length > 0 ? (data.map((e, i) => (
-        <Link to={`/movies/${search || toprated || upcoming || discover ? search || toprated || upcoming || discover : ''}/${e.id}`} key={e.id} style={{ color: "#000", textDecoration: 'none' }}>
+        <Link to={`/movies/${search || toprated || upcoming || discover || similar ? search || toprated || upcoming || discover || similar : ''}/${e.id}`} key={e.id} style={{ color: "#000", textDecoration: 'none' }}>
           <div className="movie_slot position-relative" key={e.id}>
             <div className="poster">
               <img id='potser_img' src={`https://image.tmdb.org/t/p/original/${e.poster_path}`} style={{ width: "23vmin" }} alt="image" />

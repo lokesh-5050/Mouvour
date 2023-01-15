@@ -21,6 +21,7 @@ function App() {
           <Route index element={<Welcome setSearchText={setSearchText} searchText={searchText} movieData={movieData} setmovieData={setmovieData} loader={loader} setLoader={setLoader} suggestions={suggestions}  setSuggestions={setSuggestions}/>} />
           <Route path='movies' element={<SharedMoviesPage />}>
             <Route path='search/:id' element={<SingleMovie goTohome="/" />} />
+            <Route path='similar/:id' element={<SingleMovie goTohome="/" />} />
             <Route path='toprated' element={<TopRatedMovies toprated="toprated" loader={loader} setLoader={setLoader} />} />
             <Route path='toprated/:id' element={<SingleMovie goToTopRated="/movies/toprated" />} />
             <Route path='upcoming' element={<UpcomingMovies loader={loader} upcoming="upcoming" setLoader={setLoader} />} />
