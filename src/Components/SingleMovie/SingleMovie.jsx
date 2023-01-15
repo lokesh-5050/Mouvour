@@ -14,6 +14,8 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
     const [credits, setCredits] = useState([])
     const castsDiv = useRef(null);
     const [SimilarMovies, setSimilarMovies] = useState([]);
+    let params = useParams()
+    console.log(params)
     let { id } = useParams();
     console.log(id);
 
