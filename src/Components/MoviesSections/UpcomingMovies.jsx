@@ -1,9 +1,11 @@
 import { DotSpinner } from '@uiball/loaders';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Movie from '../MovieCard/Movie';
+import { PageProvider } from '../../context/PageContext';
+import Pagination from '../Pagination/Pagination';
 const UpcomingMovies = ({ loader, setLoader }) => {
-
+  const [page, setPage] = useContext(PageProvider)
   const [UpcomingMoviesData, setUpcomingMoviesData] = useState([])
   //1st movieData prosp me lao us se hi karo
   // same useSate name in this comp also
@@ -15,7 +17,7 @@ const UpcomingMovies = ({ loader, setLoader }) => {
     if (!UpcomingMoviesData.length) {
       setLoader(true)
     }
-    let { data } = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
+    let { data } = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=${page}`)
     let { results } = data
     console.log(results);
     setUpcomingMoviesData(results)
@@ -25,19 +27,23 @@ const UpcomingMovies = ({ loader, setLoader }) => {
   }
 
   useEffect(() => {
+    setUpcomingMoviesData([])
     fetchUpcomingMovies()
-  }, [])
+  }, [page])
 
 
   console.log(UpcomingMoviesData);
   return (
     <>
-    <div className="container d-flex gap-4 flex-wrap" style={{padding:'3vw 2.2vw'}}>
-    <div className="container text-center">
-        <h4><span style={{color:'#0bb84d'}}>Upcoming Movies </span> Movies Section</h4>
+      <div className="container d-flex gap-4 flex-wrap" style={{ padding: '3vw 2.2vw' }}>
+        <div className="container text-center">
+          <h4><span style={{ color: '#0bb84d' }}>Upcoming Movies </span> Movies Section</h4>
+        </div>
+        {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>) : <Movie data={UpcomingMoviesData} upcoming="upcoming" />}
+        <div className="container text-center" style={{ maxHeight: '1.5rem' }}>
+          <Pagination data={UpcomingMoviesData} />
+        </div>
       </div>
-      {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>) : <Movie data={UpcomingMoviesData} upcoming="upcoming" />}
-    </div>
     </>
   )
 }

@@ -8,7 +8,7 @@ const Pagination = ({ data  }) => {
     const [currentData, setCurrentData] = useState(null)
     const [pageCount, setPageCount] = useState(0)
     const [dataOffset, setDataOffset] = useState(0);
-    const dataPerPage = 2;
+    const dataPerPage = 5;
 
     useEffect(() => {
         const endOffset = dataOffset + dataPerPage;
