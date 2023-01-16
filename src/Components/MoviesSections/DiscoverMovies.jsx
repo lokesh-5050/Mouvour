@@ -6,6 +6,7 @@ import { PageProvider } from '../../context/PageContext';
 import Pagination from '../Pagination/Pagination';
 const DiscoverMovies = ({ loader, setLoader }) => {
   const [page, setPage] = useContext(PageProvider)
+
   const [DiscoverMoviesData, setDiscoverMoviesData] = useState([])
   //1st movieData prosp me lao us se hi karo
   // same useSate name in this comp also
@@ -26,13 +27,18 @@ const DiscoverMovies = ({ loader, setLoader }) => {
 
   }
 
+  useEffect((e) => {
+    setPage(1)
+  }, [])
+  console.log(page);
+
   useEffect(() => {
     setDiscoverMoviesData([])
     fetchDiscoverMovies()
   }, [page])
 
 
-  console.log(DiscoverMoviesData);
+  // console.log(DiscoverMoviesData);
   return (
     <>
       <div className="container d-flex gap-4 flex-wrap" style={{ padding: '3vw 2.2vw' }}>

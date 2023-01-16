@@ -7,6 +7,7 @@ import { PageProvider } from '../../context/PageContext';
 const TopRatedMovies = ({ loader, setLoader }) => {
 
   const [page, setPage] = useContext(PageProvider)
+
   const [topRatedMoviesData, setTopRatedMoviesData] = useState([])
   //1st movieData prosp me lao us se hi karo
   // same useSate name in this comp also
@@ -27,6 +28,12 @@ const TopRatedMovies = ({ loader, setLoader }) => {
 
   }
 
+  useEffect((e) => {
+    setPage(1)
+    
+  }, [])
+  console.log(page);
+
   useEffect(() => {
     setTopRatedMoviesData([])
     fetchTopRatedMovies()
@@ -34,7 +41,7 @@ const TopRatedMovies = ({ loader, setLoader }) => {
   }, [page])
 
 
-  console.log(topRatedMoviesData);
+  // console.log(topRatedMoviesData);
   return (
     <>
       <div className="container TopRated d-flex gap-4 flex-wrap" style={{ padding: '3vw 2.2vw' }}>
@@ -43,7 +50,7 @@ const TopRatedMovies = ({ loader, setLoader }) => {
         </div>
 
         {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>) : <Movie data={topRatedMoviesData} toprated="toprated" />}
-        <div className="container text-center" style={{maxHeight:'1.5rem'}}>
+        <div className="container text-center" style={{ maxHeight: '1.5rem' }}>
           <Pagination data={topRatedMoviesData} />
         </div>
       </div>

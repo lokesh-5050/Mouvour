@@ -41,12 +41,19 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     setGetNowPlayingMovies(results)
   }
 
+
+  useEffect((e) => {
+    setPage(1)
+    console.log(page + " i run first");
+    
+  }, [])
+
   useEffect((e) => {
     fetchNowPlayingMovies()
   }, [page])
 
 
-  console.log(movieData);
+  // console.log(movieData);
 
 
   // var showMovies = movieData.map((e, i) => (

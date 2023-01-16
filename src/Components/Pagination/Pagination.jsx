@@ -8,6 +8,7 @@ const Pagination = ({ data  }) => {
     const [currentData, setCurrentData] = useState(null)
     const [pageCount, setPageCount] = useState(0)
     const [dataOffset, setDataOffset] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
     const dataPerPage = 1;
 
     useEffect(() => {
@@ -23,6 +24,7 @@ const Pagination = ({ data  }) => {
         const newOffset = (event.selected * dataPerPage) % data.length +1;
         setPage(newOffset);
         setDataOffset(newOffset);
+        // setCurrentPage(newOffset)
     };
 
     return (
@@ -40,6 +42,8 @@ const Pagination = ({ data  }) => {
                 previousClassName='page-num'
                 nextClassName='page-num'
                 activeClassName='active'
+                // forcePage={currentPage}
+                // forcePage={0}
             />
         </>
     );

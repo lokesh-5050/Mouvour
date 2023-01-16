@@ -6,6 +6,7 @@ import { PageProvider } from '../../context/PageContext';
 import Pagination from '../Pagination/Pagination';
 const UpcomingMovies = ({ loader, setLoader }) => {
   const [page, setPage] = useContext(PageProvider)
+
   const [UpcomingMoviesData, setUpcomingMoviesData] = useState([])
   //1st movieData prosp me lao us se hi karo
   // same useSate name in this comp also
@@ -26,13 +27,19 @@ const UpcomingMovies = ({ loader, setLoader }) => {
 
   }
 
+  useEffect((e) => {
+    setPage(1)
+    console.log(page + " i run first");
+    
+  }, [])
+
   useEffect(() => {
     setUpcomingMoviesData([])
     fetchUpcomingMovies()
   }, [page])
 
 
-  console.log(UpcomingMoviesData);
+  // console.log(UpcomingMoviesData);
   return (
     <>
       <div className="container d-flex gap-4 flex-wrap" style={{ padding: '3vw 2.2vw' }}>
