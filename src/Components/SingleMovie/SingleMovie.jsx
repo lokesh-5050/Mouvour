@@ -5,7 +5,6 @@ import { StarFill, ArrowLeftCircle, ArrowRight, SimFill } from 'react-bootstrap-
 import '../SingleMovie/SingleMovie.css'
 import { DotWave } from '@uiball/loaders';
 import ReactPlayer from 'react-player/youtube'
-import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 import Movie from '../MovieCard/Movie'
 const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => {
     const [clickedMovieData, setClickedMovieData] = useState([]);
@@ -68,12 +67,16 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
     setTimeout(() => {
         findKey()
-    }, 900);
+    }, 400);
 
     const findKey = async () => {
         let got = movieVideo.filter((e) => e.type === "Trailer")
         console.log(got[0].key);
-        setVideoKey(got[0].key)
+        if (got[0].key !== undefined) {
+            setVideoKey(got[0].key)
+        }else{
+            setVideoKey(got[1].key)
+        }
     }
 
 
@@ -83,10 +86,10 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
     }
 
 
-    const getSimilarMovies =  async()=>{
-        let {data} = await axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
-        let {results} = data;
-        console.log(results );
+    const getSimilarMovies = async () => {
+        let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
+        let { results } = data;
+        console.log(results);
         setSimilarMovies(results)
 
     }
@@ -182,11 +185,11 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
             </div>
         </div>
-        <div className="container position-absolute text-center" style={{top:'55vw'}} >
+        <div className="container position-absolute text-center" style={{ top: '55vw' }} >
             <button className="btn-primary btn" onClick={getSimilarMovies}>Get Similar Movies</button>
         </div>
-        <div className="container position-absolute d-flex gap-4 flex-wrap" style={{top:'60vw'}}>
-                {SimilarMovies.length >0? <Movie similar='similar' data={SimilarMovies} /> : ''}
+        <div className="container position-absolute d-flex gap-4 flex-wrap" style={{ top: '60vw' }}>
+            {SimilarMovies.length > 0 ? <Movie similar='similar' data={SimilarMovies} /> : ''}
         </div>
     </div>) : 'no data'
 

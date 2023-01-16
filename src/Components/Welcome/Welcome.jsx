@@ -1,14 +1,17 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import '../Welcome/Welcome.css';
 import Axios from 'axios'
 import { DotSpinner, DotWave } from '@uiball/loaders'
 import { Link } from 'react-router-dom';
 import Movie from '../MovieCard/Movie';
+import { PageProvider } from '../../context/PageContext'
+import axios from 'axios';
 const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, setLoader, suggestions, setSuggestions }) => {
-
+  const [page, setPage] = useContext(PageProvider);
   const [showingDataFor, setShowingDataFor] = useState('')
   const inputMovieRef = useRef(null)
   const formSubmtBtn = useRef(null)
+  const [getNowPlayingMovies, setGetNowPlayingMovies] = useState([])
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -22,14 +25,25 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     let query = inputMovieRef.current.value;
     setLoader(true)
     const { data } = await Axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
+
     const { results } = data
     console.log(results);
     setmovieData(results);
     setLoader(false)
-    
     setSearchText('')
 
+
   }
+
+  const fetchNowPlayingMovies = async () => {
+    let { data } = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=${page}`)
+    let { results } = data;
+    setGetNowPlayingMovies(results)
+  }
+
+  useEffect((e) => {
+    fetchNowPlayingMovies()
+  }, [page])
 
 
   console.log(movieData);
@@ -71,7 +85,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     if (inputMovieRef.current.value.length > 2) {
       setTimeout(() => {
         delayedSuggestion()
-      }, 900);
+      }, 100);
     } else if (inputMovieRef.current.value.length == 0) {
       setSuggestions([])
     }
@@ -79,7 +93,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   }
 
-  const searchBySuggestion = async(f) => {
+  const searchBySuggestion = async (f) => {
     console.log(inputMovieRef.current.value);
     inputMovieRef.current.value = f.target.innerHTML
     console.log(searchText);
@@ -98,9 +112,9 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
           <form className='container mt-2' onSubmit={handleSearch}>
             <input ref={inputMovieRef} type="text" value={searchText} onChange={(e) => onTypeSearchMovie(e)} className={`form-control movInp mt-2 `} placeholder='Search Movie Name...' />
             {/* suggestions section starts */}
-            <div className="suggestions text-start position-absolute " style={{ maxHeight: "10vw", minWidth: "38rem", overflow: "hidden", overflowY: 'scroll', marginLeft: "0vw" }}>
+            <div className="suggestions text-start position-absolute mt-1" style={{ maxHeight: "7.5vw", minWidth: "38rem", overflow: "hidden", overflowY: 'scroll', marginLeft: "0vw" }}>
               {suggestions.length > 0 ? suggestions.map((e, i) => (
-                <div className="list mt-2" key={i} onClick={(e) => searchBySuggestion(e)}>
+                <div className="list mt-1" key={i} onClick={(e) => searchBySuggestion(e)}>
                   <h6 className='mx-2 mt-1 p-1' style={{ backgroundColor: '#dbd5d5' }}>{e.original_title}</h6>
                 </div>
               )) : ''}
@@ -124,7 +138,9 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
           {/* {showMovies} */}
           {/* {movieData?.length > 0 ? <Movie movieData={movieData}/> : 'l'} */}
 
-          {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><h4>Search Movies...</h4></div></div>) : <Movie search="search" data={movieData} />}
+          {/* {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><h4>Search Movies...</h4></div></div>) : <Movie search="search" data={movieData} />} */}
+
+          {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} /> : (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><h4>Search Movies...</h4></div></div>)}
 
 
         </div>
