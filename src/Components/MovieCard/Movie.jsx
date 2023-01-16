@@ -2,7 +2,7 @@ import { DotSpinner } from '@uiball/loaders';
 import React from 'react'
 import { Link } from 'react-router-dom'
 import '../MovieCard/Movie.css'
-const Movie = ({ data, search, toprated, upcoming, discover, similar }) => {
+const Movie = ({ data, search, toprated, upcoming, discover, similar ,forTv }) => {
 
 
   if (toprated) {
@@ -32,7 +32,7 @@ const Movie = ({ data, search, toprated, upcoming, discover, similar }) => {
               />
               <text x="7.5" y="23" fontSize={"11px"}>{(e.vote_average) * 10}%</text>
             </svg>
-            <h4 className='container mt-2 title fs-6' style={{ maxWidth: "12vmax", marginLeft: "-0.8vw" }}>{e.original_title}</h4>
+            <h4 className='container mt-2 title fs-6' style={{ maxWidth: "12vmax", marginLeft: "-0.8vw" }}>{forTv ? e.original_name : e.original_title}</h4>
             <h6 className='container l-3'>{e.release_date}</h6>
             {/* rating animated circle/svg */}
 
