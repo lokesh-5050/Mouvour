@@ -97,8 +97,6 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
         let { results } = data;
         console.log(results);
         setSimilarMovies(results)
-        
-
     }
 
 
