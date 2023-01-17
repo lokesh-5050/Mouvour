@@ -177,6 +177,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
         </div>
 
         {/* // huelo */}
+        {/* // huelo */}
 
 
 
