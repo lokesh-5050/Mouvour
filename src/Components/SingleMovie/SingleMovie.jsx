@@ -6,7 +6,7 @@ import '../SingleMovie/SingleMovie.css'
 import { DotWave } from '@uiball/loaders';
 import ReactPlayer from 'react-player/youtube'
 import Movie from '../MovieCard/Movie'
-const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => {
+const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv }) => {
     const [clickedMovieData, setClickedMovieData] = useState([]);
     const [movieVideo, setMovieVideo] = useState([])
     const [videoKey, setVideoKey] = useState('')
@@ -26,14 +26,14 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
 
     let thisMovieData = async () => {
-        let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
+        let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
         // console.log(data);
         setClickedMovieData(data)
         console.log("data loaded successfully!");
     }
 
     let thisMovieVideo = async () => {
-        let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
+        let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/videos?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
         let { results } = data;
 
         // console.log(results);
@@ -43,9 +43,13 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
     }
 
     const getCasts = async () => {
-        let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
+        // https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key=<<api_key>>&language=en-US
+
+        let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/credits?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
+        console.log(data);
         let { cast } = data;
         setCredits(cast);
+
     }
 
     useEffect(() => {
@@ -74,7 +78,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
         console.log(got[0].key);
         if (got[0].key !== undefined) {
             setVideoKey(got[0].key)
-        }else{
+        } else {
             setVideoKey(got[1].key)
         }
     }
@@ -87,7 +91,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
 
     const getSimilarMovies = async () => {
-        let { data } = await axios.get(`https://api.themoviedb.org/3/movie/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
+        let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
         let { results } = data;
         console.log(results);
         setSimilarMovies(results)
@@ -103,7 +107,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
             </div>}
 
             <div className="info">
-                <h3 className='mt-3 mb-3'>{clickedMovieData.title}</h3>
+                <h3 className='mt-3 mb-3'>{forTv ? clickedMovieData.original_name : clickedMovieData.title}</h3>
                 <div className="genre d-flex gap-3 mb-3">
                     {clickedMovieData.genres.map((g) => (
                         <>
@@ -123,7 +127,9 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
 
 
                 </div>
-                <h4 className=' mt-2 mb-4'>Budget : {clickedMovieData.budget} $ </h4>
+                <h6 className=' mt-2 mb-4'>{forTv ? `first-air-date ${clickedMovieData.first_air_date}`: `Budget : ${clickedMovieData.budget} $` }  </h6>
+                
+                {forTv ? (<div className='container d-flex justify-content-between p-0'><h6 className='mt-1 mb-4'>{forTv ? `number-of-episodes : ${clickedMovieData.number_of_episodes} `: `` }  </h6> <h6 className='mt-1 mb-4'>number-of-seasons : {clickedMovieData.number_of_seasons}</h6></div>) : ''}
                 <h5 className='mb-3'>Overview</h5>
                 <p style={{ maxWidth: "40vw" }}>{clickedMovieData.overview}</p>
 
@@ -174,7 +180,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
             <div ref={castsDiv} className="container casts d-flex gap-4 " style={{ maxWidth: 'inherit', overflowX: 'scroll', }}>
                 {credits?.length > 0 ? (credits.map((c) => (
 
-                    <div className="cast" style={{ maxWidth: '11vmax', maxHeight: "20vmax" }}>
+                    <div className="cast" style={{ maxWidth: '11vmax', maxHeight: "20vmax" }} key={c.id}>
                         <div className="img" >
                             <img height={"240vw"} src={`https://image.tmdb.org/t/p/original/${c.profile_path}`} alt="casts" />
                         </div>
@@ -186,10 +192,10 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover }) => 
             </div>
         </div>
         <div className="container position-absolute text-center" style={{ top: '55vw' }} >
-            <button className="btn-primary btn" onClick={getSimilarMovies}>Get Similar Movies</button>
+            <button className="btn-primary btn" onClick={getSimilarMovies}>Get Similar {forTv ? forTv : 'Movies'}</button>
         </div>
         <div className="container position-absolute d-flex gap-4 flex-wrap" style={{ top: '60vw' }}>
-            {SimilarMovies.length > 0 ? <Movie similar='similar' data={SimilarMovies} /> : ''}
+            {SimilarMovies.length > 0 ? <Movie similar='similar' forTv={forTv}  data={SimilarMovies} /> : ''}
         </div>
     </div>) : 'no data'
 

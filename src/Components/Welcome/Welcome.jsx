@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Movie from '../MovieCard/Movie';
 import { PageProvider } from '../../context/PageContext'
 import axios from 'axios';
+import Pagination from '../Pagination/Pagination';
 const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, setLoader, suggestions, setSuggestions, forMovies, forTv }) => {
   const [page, setPage] = useContext(PageProvider);
   const [showingDataFor, setShowingDataFor] = useState('')
@@ -25,6 +26,8 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     let query = inputMovieRef.current.value;
     setLoader(true)
     if (forTv) {
+      setGetNowPlayingMovies([])
+
       const { data } = await Axios.get(`https://api.themoviedb.org/3/search/tv?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
 
       const { results } = data
@@ -33,6 +36,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
       setLoader(false)
       setSearchText('')
     } else {
+      setGetNowPlayingMovies([])
       const { data } = await Axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
 
       const { results } = data
@@ -131,6 +135,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
   }
 
 
+
   return (
     <>
 
@@ -144,7 +149,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
             <div className="suggestions text-start position-absolute mt-1" style={{ maxHeight: "7.5vw", minWidth: "38rem", overflow: "hidden", overflowY: 'scroll', marginLeft: "0vw" }}>
               {suggestions.length > 0 ? suggestions.map((e, i) => (
                 <div className="list mt-1" key={i} onClick={(e) => searchBySuggestion(e)}>
-                  <h6 className='mx-2 mt-1 p-1' style={{ backgroundColor: '#dbd5d5' }}>{forTv ? e.original_name :  e.original_title}</h6>
+                  <h6 className='mx-2 mt-1 p-1' style={{ backgroundColor: '#dbd5d5' }}>{forTv ? e.original_name : e.original_title}</h6>
                 </div>
               )) : ''}
 
@@ -162,17 +167,15 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
         <div className={`container  d-flex gap-4 flex-wrap`} >
 
-          {/* {movieData?.length > 0 ? showMovies : <DotWave/>} */}
 
-          {/* {showMovies} */}
-          {/* {movieData?.length > 0 ? <Movie movieData={movieData}/> : 'l'} */}
+          {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing'/> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : <DotSpinner />}
 
-          {/* {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><h4>Search Movies...</h4></div></div>) : <Movie search="search" data={movieData} />} */}
-          {movieData.length > 0 ? <Movie data={movieData} forTv={forTv}/> : getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} /> : (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><h4>Search Movies...</h4></div></div>)}
-          {/* {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} /> : (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><h4>Search Movies...</h4></div></div>)} */}
-
+          <div className="container text-center " style={{ maxHeight: '1.8rem' }}>
+            <Pagination data={getNowPlayingMovies} />
+          </div>
 
         </div>
+
 
 
 

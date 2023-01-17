@@ -22,6 +22,7 @@ function App() {
           <Route index element={<Welcome forMovies="Movies" setSearchText={setSearchText} searchText={searchText} movieData={movieData} setmovieData={setmovieData} loader={loader} setLoader={setLoader} suggestions={suggestions}  setSuggestions={setSuggestions}/>} />
           <Route path='movies' element={<SharedMoviesPage />}>
             <Route path='search/:id' element={<SingleMovie goTohome="/" />} />
+            <Route path='now-playing/:id' element={<SingleMovie goTohome="/" />} />
             <Route path='similar/:id' element={<SingleMovie goTohome="/" />} />
             <Route path='toprated' element={<TopRatedMovies toprated="toprated" loader={loader} setLoader={setLoader} />} />
             <Route path='toprated/:id' element={<SingleMovie goToTopRated="/movies/toprated" />} />
@@ -30,8 +31,10 @@ function App() {
             <Route path='discover' element={<DiscoverMovies loader={loader} discover="discover" setLoader={setLoader} />} />
             <Route path='discover/:id' element={<SingleMovie goToDiscover="/movies/discover" />} />
           </Route>
-          <Route path='tv' element={<SharedMoviesPage/>}>
-            <Route index element={<Welcome forTv="Tv Shows" setSearchText={setSearchText} searchText={searchText} movieData={tvData} setmovieData={setTvData} loader={loader} setLoader={setLoader} suggestions={suggestions}  setSuggestions={setSuggestions}/>}/>
+          <Route path='tv-shows' element={<SharedMoviesPage/>}>
+            <Route index element={<Welcome forTv="Tv-Shows" setSearchText={setSearchText} searchText={searchText} movieData={tvData} setmovieData={setTvData} loader={loader} setLoader={setLoader} suggestions={suggestions}  setSuggestions={setSuggestions}/>}/>
+            <Route path='now-playing/:id' element={<SingleMovie goToTopRated="/movies/toprated" forTv='Tv-Shows'/>} />
+            <Route path='similar/:id' element={<SingleMovie forTv='Tv-Shows' goTohome="/" />} />
           </Route>
           {/* <Route path='movies/toprated' element={<SharedTopRatedMoviePage />}>
             

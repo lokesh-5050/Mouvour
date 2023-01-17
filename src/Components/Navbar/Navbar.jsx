@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
         <div className="items d-flex align-items-center justify-content-end p-1 gap-1">
           <li><NavLink style={({ isActive }) => ({ backgroundColor: isActive ? 'black' : '#fff', color: isActive ? 'whitesmoke' : 'black' })} className='nav-item text-decoration-none p-1 rounded-1  fs-7 active' to='/'>Home</NavLink></li>
-          <li><NavLink style={({ isActive }) => ({ backgroundColor: isActive ? 'black' : '#fff', color: isActive ? 'whitesmoke' : 'black' })} className='nav-item text-decoration-none p-1 rounded-1 fs-7' to='/tv'>Tv</NavLink></li>
+          <li><NavLink style={({ isActive }) => ({ backgroundColor: isActive ? 'black' : '#fff', color: isActive ? 'whitesmoke' : 'black' })} className='nav-item text-decoration-none p-1 rounded-1 fs-7' to='/tv-shows'>Tv</NavLink></li>
           <li><NavLink style={({ isActive }) => ({ backgroundColor: isActive ? 'black' : '#fff', color: isActive ? 'whitesmoke' : 'black' })} className='nav-item text-decoration-none p-1 rounded-1 fs-7' to='/movies/toprated'>Top-Rated</NavLink></li>
           <li><NavLink style={({ isActive }) => ({ backgroundColor: isActive ? 'black' : '#fff', color: isActive ? 'whitesmoke' : 'black' })} className='nav-item text-decoration-none p-1 rounded-1 fs-7' to='/movies/upcoming'>Upcoming</NavLink></li>
           <li><NavLink style={({ isActive }) => ({ backgroundColor: isActive ? 'black' : '#fff', color: isActive ? 'whitesmoke' : 'black' })} className='nav-item text-decoration-none p-1 rounded-1 fs-7' to='/movies/discover'>Discover</NavLink></li>
