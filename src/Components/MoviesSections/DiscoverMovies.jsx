@@ -31,7 +31,7 @@ const DiscoverMovies = ({ loader, setLoader }) => {
     setPage(1)
   }, [])
   console.log(page);
-
+  
   useEffect(() => {
     setDiscoverMoviesData([])
     fetchDiscoverMovies()
