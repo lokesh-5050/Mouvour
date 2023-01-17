@@ -18,6 +18,8 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
     let { id } = useParams();
     console.log(id);
 
+    const similar_movie_div = useRef(null);
+
     const Naviagte = useNavigate();
 
     const goBack = () => {
@@ -90,11 +92,12 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
     }
 
 
-    const getSimilarMovies = async () => {
+    const getSimilarMovies = async (e) => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
         let { results } = data;
         console.log(results);
         setSimilarMovies(results)
+        
 
     }
 
@@ -194,7 +197,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
         <div className="container position-absolute text-center" style={{ top: '55vw' }} >
             <button className="btn-primary btn" onClick={getSimilarMovies}>Get Similar {forTv ? forTv : 'Movies'}</button>
         </div>
-        <div className="container position-absolute d-flex gap-4 flex-wrap" style={{ top: '60vw' }}>
+        <div className="container position-absolute d-flex gap-4 flex-wrap " ref={similar_movie_div} style={{ top: '60vw' }}>
             {SimilarMovies.length > 0 ? <Movie similar='similar' forTv={forTv}  data={SimilarMovies} /> : ''}
         </div>
     </div>) : 'no data'
