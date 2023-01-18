@@ -7,7 +7,6 @@ import Movie from '../MovieCard/Movie';
 
 import axios from 'axios';
 import Pagination from '../Pagination/Pagination';
-import { ProfileShimmer } from 'react-content-shimmer'
 
 const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, setLoader, suggestions, setSuggestions, forMovies, forTv }) => {
   const [page, setPage] = useState(1)
