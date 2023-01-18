@@ -30,12 +30,12 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
         Naviagte(-1)
     }
 
-
     let thisMovieData = async () => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
         // console.log(data);
         setClickedMovieData(data)
         console.log("data loaded successfully!");
+    
     }
 
     let thisMovieVideo = async () => {
@@ -89,32 +89,22 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
         }
     }
 
-
     const castsScrollRight = () => {
         castsDiv.current.scrollLeft = "1vw"
         console.log("ru");
     }
 
-
-    // const getSimilarMovies = async (e) => {
-    //     let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
-    //     let { results } = data;
-    //     console.log(results);
-    //     setSimilarMovies(results)
-
-    // }
-
-    async function getSimilarMovies(e) {
+    const getSimilarMovies = async (e) => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
         let { results } = data;
         console.log(results);
         setSimilarMovies(results)
         setTimeout(() => {
             window.scrollTo(0, 210)
-        }, 50);
+        }, 20);
     }
 
-
+    
 
     let renderMovieData = clickedMovieData?.id ? (<div className="box p-4" key={clickedMovieData.id}>
         <div className="d-flex gap-5 upperOne" >
@@ -127,14 +117,14 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
                     {clickedMovieData.genres.map((g) => (
                         <>
                             <em className='p-1' key={g.id} style={{ backgroundColor: "lightgray", borderRadius: '10px' }}>{g.name}</em>
-                            <svg viewBox="0 0 60 60" className="circular-chart position-absolute" style={{ top: '8.8vmax', left: '80vmax' }} >
+                            <svg viewBox="0 0 60 60" className="circular-chart position-absolute" style={{ top: '5.8vmax', left: '90vmax' }} >
                                 <path className="circle"
                                     strokeDasharray={`${clickedMovieData.vote_average * 10} , 100`}
                                     d="M18 2.0845
                     a 14.9155 14.9155 0 0 1 0 31.831
                     a 14.9155 14.9155 0 0 1 0 -31.831"
                                 />
-                                <text x="7.5" y="23" fontSize={"7.5px"} style={{ fontStyle: 'bold' }}>{(clickedMovieData.vote_average) * 10}%</text>
+                                <text x="10.5" y="22" fontSize={"7.5px"} style={{ fontStyle: 'bold' }}>{(Math.round(clickedMovieData.vote_average)) * 10}%</text>
                             </svg>
                         </>
                     ))}
@@ -205,13 +195,6 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
             {SimilarMovies.length > 0 ? <Movie similar='similar' forTv={forTv} data={SimilarMovies} /> : ''}
         </div>
     </div>) : (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>)
-
-
-
-
-
-
-
 
     return (
         <>
