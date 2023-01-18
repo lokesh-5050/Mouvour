@@ -1,1 +1,0 @@
-use => https://image.tmdb.org/t/p/original/here_Poster_img_url

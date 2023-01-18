@@ -4,19 +4,21 @@ import Axios from 'axios'
 import { DotSpinner, DotWave } from '@uiball/loaders'
 import { Link } from 'react-router-dom';
 import Movie from '../MovieCard/Movie';
-import { PageProvider } from '../../context/PageContext'
+
 import axios from 'axios';
 import Pagination from '../Pagination/Pagination';
+import { ProfileShimmer } from 'react-content-shimmer'
+
 const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, setLoader, suggestions, setSuggestions, forMovies, forTv }) => {
-  const [page, setPage] = useContext(PageProvider);
+  const [page, setPage] = useState(1)
   const [showingDataFor, setShowingDataFor] = useState('')
   const inputMovieRef = useRef(null)
   const formSubmtBtn = useRef(null)
-  const [getNowPlayingMovies, setGetNowPlayingMovies] = useState([])
+  const [getNowPlayingMovies, setGetNowPlayingMovies] = useState([]);
   // console.log(forTv);
   const handleSearch = async (e) => {
     e.preventDefault();
-    setSuggestions([])
+    setSuggestions([]);
     console.log(searchText);
     setShowingDataFor(inputMovieRef.current.value)
     if (!movieData.length) {
@@ -68,35 +70,10 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   // }, [])
 
-  // useEffect((e) => {
-  //   fetchNowPlayingMoviesOrTv()
-  // }, [page])
+  useEffect((e) => {
+    fetchNowPlayingMoviesOrTv()
+  }, [page])
 
-
-  // console.log(movieData);
-
-
-  // var showMovies = movieData.map((e, i) => (
-  //   <Link to={`/movies/${e.id}`} key={e.id}>
-  //   <div className="movie_slot"  key={e.id}>
-  //     <div className="poster">
-  //       <img src={`https://image.tmdb.org/t/p/original/${e.poster_path}`} style={{ width: "14vw" }} alt="image" />
-  //     </div>
-  //     <h4 className='container l-3 mt-2 title'>{e.original_title}</h4>
-  //     <h6 className='container l-3'>{e.release_date}</h6>
-  //     {/* rating animated circle/svg */}
-  //     <svg viewBox="0 0 36 36" className="circular-chart" >
-  //       <path className="circle"
-  //         strokeDasharray={`${e.vote_average * 10} , 100`}
-  //         d="M18 2.0845
-  //                   a 15.9155 15.9155 0 0 1 0 31.831
-  //                   a 15.9155 15.9155 0 0 1 0 -31.831"
-  //       />
-  //       <text x="7.5" y="23" fontSize={"11px"}>{(e.vote_average) * 10}%</text>
-  //     </svg>
-  //   </div>
-  //   </Link>
-  // ))
 
   const delayedSuggestion = async () => {
     let query = searchText;
@@ -114,7 +91,6 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
 
   const onTypeSearchMovie = async (e) => {
     setSearchText(e.target.value)
-    // console.log(inputMovieRef.current.value.length);
     if (inputMovieRef.current.value.length > 0) {
       setTimeout(() => {
         delayedSuggestion()
@@ -168,22 +144,15 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
         <div className={`container  d-flex gap-4 flex-wrap`} >
 
 
-          {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing'/> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : <DotSpinner />}
+          {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing' /> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><DotSpinner/></div></div>)}
+          {/* {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing' /> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : <ProfileShimmer style={{boxShadow: '0 1px 2px 1px rgba(0, 0, 0, 0.08)'}}/>} */}
 
           <div className="container text-center " style={{ maxHeight: '1.8rem' }}>
-            <Pagination data={getNowPlayingMovies} />
+            <Pagination data={getNowPlayingMovies} page={page} setPage={setPage} />
           </div>
 
         </div>
-
-        {/* // huelo */}
-        {/* // huelo */}
-
-
-
       </div>
-
-
     </>
   )
 }

@@ -1,17 +1,4 @@
-.sub_menu {
-  width: "10rem";
-  height: '5rem';
-  background-color: red;
-  display: none;
-}
-.box:hover > .sub_menu {
-  min-width: "10rem";
-  min-height: '5rem';
-   display: initial;
-   color: rgb(240, 240, 240);
-   background-color: rgb(10, 227, 235);
-   border-radius:4px;
-}
+
 
 @media screen and (max-device-width: 640px) {
   .title {

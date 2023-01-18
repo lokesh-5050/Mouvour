@@ -3,10 +3,11 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import Movie from '../MovieCard/Movie';
 import Pagination from '../Pagination/Pagination';
-import { PageProvider } from '../../context/PageContext';
+// import { PageProvider } from '../../context/PageContext';
 const TopRatedMovies = ({ loader, setLoader }) => {
 
-  const [page, setPage] = useContext(PageProvider)
+  // const [page, setPage] = useContext(PageProvider)
+  const [page, setPage] = useState(1)
 
   const [topRatedMoviesData, setTopRatedMoviesData] = useState([])
   //1st movieData prosp me lao us se hi karo
@@ -28,11 +29,7 @@ const TopRatedMovies = ({ loader, setLoader }) => {
 
   }
 
-  useEffect((e) => {
-    setPage(1)
-    
-  }, [])
-  console.log(page);
+
 
   useEffect(() => {
     setTopRatedMoviesData([])
@@ -51,7 +48,7 @@ const TopRatedMovies = ({ loader, setLoader }) => {
 
         {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>) : <Movie data={topRatedMoviesData} toprated="toprated" />}
         <div className="container text-center" style={{ maxHeight: '1.5rem' }}>
-          <Pagination data={topRatedMoviesData} />
+          <Pagination data={topRatedMoviesData} page={page} setPage={setPage} />
         </div>
       </div>
     </>

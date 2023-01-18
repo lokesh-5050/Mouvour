@@ -1,12 +1,12 @@
 import { DotSpinner } from '@uiball/loaders';
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import Movie from '../MovieCard/Movie';
-import { PageProvider } from '../../context/PageContext';
+// import { PageProvider } from '../../context/PageContext';
 import Pagination from '../Pagination/Pagination';
 const DiscoverMovies = ({ loader, setLoader }) => {
-  const [page, setPage] = useContext(PageProvider)
-
+  // const [page, setPage] = useContext(PageProvider)
+  const [page, setPage] = useState(1)
   const [DiscoverMoviesData, setDiscoverMoviesData] = useState([])
   //1st movieData prosp me lao us se hi karo
   // same useSate name in this comp also
@@ -27,10 +27,10 @@ const DiscoverMovies = ({ loader, setLoader }) => {
 
   }
 
-  useEffect((e) => {
-    setPage(1)
-  }, [])
-  console.log(page);
+  // useEffect((e) => {
+  //   setPage(1)
+  // }, [])
+  // console.log(page);
   
   useEffect(() => {
     setDiscoverMoviesData([])
@@ -47,7 +47,7 @@ const DiscoverMovies = ({ loader, setLoader }) => {
         </div>
         {loader ? (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>) : <Movie data={DiscoverMoviesData} discover="discover" />}
         <div className="container text-center" style={{ maxHeight: '1.5rem' }}>
-          <Pagination data={DiscoverMoviesData} />
+          <Pagination data={DiscoverMoviesData} page={page} setPage={setPage}/>
         </div>
       </div>
     </>

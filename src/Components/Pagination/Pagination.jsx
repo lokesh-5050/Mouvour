@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate';
-import { PageProvider } from '../../context/PageContext';
 import '../Pagination/Pagination.css'
-const Pagination = ({ data }) => {
+const Pagination = ({ data, page, setPage }) => {
 
-    const [page, setPage] = useContext(PageProvider)
     const [currentData, setCurrentData] = useState(null)
     const [pageCount, setPageCount] = useState(0)
     const [dataOffset, setDataOffset] = useState(0);
