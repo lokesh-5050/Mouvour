@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { StarFill, ArrowLeftCircle, ArrowRight, SimFill } from 'react-bootstrap-icons'
 import '../SingleMovie/SingleMovie.css'
-import { DotWave } from '@uiball/loaders';
+import { DotSpinner, DotWave } from '@uiball/loaders';
 import ReactPlayer from 'react-player/youtube'
 import Movie from '../MovieCard/Movie'
 const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv }) => {
@@ -198,7 +198,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
         <div className="container position-absolute d-flex gap-4 flex-wrap " ref={similar_movie_div} style={{ top: '60vw' }}>
             {SimilarMovies.length > 0 ? <Movie similar='similar' forTv={forTv}  data={SimilarMovies} /> : ''}
         </div>
-    </div>) : 'no data'
+    </div>) : (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><DotSpinner/></div></div>)
 
 
 

@@ -62,15 +62,15 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
   }
 
 
-  useEffect((e) => {
-    setPage(1)
-    console.log(page + " i run first");
+  // useEffect((e) => {
+  //   setPage(1)
+  //   console.log(page + " i run first");
 
-  }, [])
+  // }, [])
 
-  useEffect((e) => {
-    fetchNowPlayingMoviesOrTv()
-  }, [page])
+  // useEffect((e) => {
+  //   fetchNowPlayingMoviesOrTv()
+  // }, [page])
 
 
   // console.log(movieData);
