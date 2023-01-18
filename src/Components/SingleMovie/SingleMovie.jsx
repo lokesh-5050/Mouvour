@@ -131,6 +131,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
                 </div>
                 <h6 className=' mt-4 mb-3'>{forTv ? `First Air Date : ${clickedMovieData.first_air_date}` : `Budget : ${clickedMovieData.budget} $`}  </h6>
                 {forTv ? (<div className='container d-flex justify-content-between p-0'><h6 className='mt-1 mb-4'>{forTv ? `Number of episodes : ${clickedMovieData.number_of_episodes} ` : ``}  </h6> <h6 className='mt-1 mb-4'>Number of seasons : {clickedMovieData.number_of_seasons}</h6></div>) : ''}
+                {/* overview */}
                 <h5 className='mb-3'>Overview</h5>
                 <p style={{ maxWidth: "40vw" }}>{clickedMovieData.overview}</p>
                 <div className="revenueAndRatings d-flex justify-content-between">
