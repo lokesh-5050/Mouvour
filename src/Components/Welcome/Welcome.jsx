@@ -22,32 +22,30 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     setShowingDataFor(inputMovieRef.current.value)
     if (!movieData.length) {
       console.log("no length");
-      // showMovies = <DotWave />
-    }
-    let query = inputMovieRef.current.value;
-    setLoader(true)
-    if (forTv) {
-      setGetNowPlayingMovies([])
-
-      const { data } = await Axios.get(`https://api.themoviedb.org/3/search/tv?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
-
-      const { results } = data
-      console.log(results);
-      setmovieData(results);
-      setLoader(false)
-      setSearchText('')
+      alert("Must write something!")
     } else {
-      setGetNowPlayingMovies([])
-      const { data } = await Axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
 
-      const { results } = data
-      console.log(results);
-      setmovieData(results);
-      setLoader(false)
-      setSearchText('')
+
+      let query = inputMovieRef.current.value;
+      setLoader(true)
+      if (forTv) {
+        setGetNowPlayingMovies([])
+        const { data } = await Axios.get(`https://api.themoviedb.org/3/search/tv?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
+        const { results } = data
+        console.log(results);
+        setmovieData(results);
+        setLoader(false)
+        setSearchText('')
+      } else {
+        setGetNowPlayingMovies([])
+        const { data } = await Axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
+        const { results } = data
+        console.log(results);
+        setmovieData(results);
+        setLoader(false)
+        setSearchText('')
+      }
     }
-
-
   }
 
   const fetchNowPlayingMoviesOrTv = async () => {
@@ -143,7 +141,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
         <div className={`container  d-flex gap-4 flex-wrap`} >
 
 
-          {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing' /> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : (<div className='container p-5'><div className="container" style={{ display:'flex' ,justifyContent:'center'}} ><DotSpinner/></div></div>)}
+          {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing' /> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>)}
           {/* {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing' /> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : <ProfileShimmer style={{boxShadow: '0 1px 2px 1px rgba(0, 0, 0, 0.08)'}}/>} */}
 
           <div className="container text-center " style={{ maxHeight: '1.8rem' }}>
