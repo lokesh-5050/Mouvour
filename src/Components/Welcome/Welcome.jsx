@@ -20,12 +20,12 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     setSuggestions([]);
     console.log(searchText);
     setShowingDataFor(inputMovieRef.current.value)
-    if (!movieData.length) {
+    console.log(inputMovieRef.current.value == 0);
+    if (inputMovieRef.current.value == 0) {
       console.log("no length");
       alert("Must write something!")
+      // return;
     } else {
-
-
       let query = inputMovieRef.current.value;
       setLoader(true)
       if (forTv) {
