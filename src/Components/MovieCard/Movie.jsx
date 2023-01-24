@@ -4,17 +4,6 @@ import { Link } from 'react-router-dom'
 import '../MovieCard/Movie.css'
 const Movie = ({ data, search, toprated, upcoming, discover, similar, forTv, now_playing }) => {
 
-
-  if (toprated) {
-    console.log("toprated");
-  } else {
-    console.log("nothing in toprated");
-  }
-
-  if (upcoming) {
-    console.log("upcoming");
-  }
-
   return (
     <>
       {data?.length > 0 ? (data.map((e, i) => (

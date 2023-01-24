@@ -36,6 +36,7 @@ function App() {
             <Route path='search/:id' element={<SingleMovie goTohome="/" forTv='Tv-Shows' />} />
             <Route path='now-playing/:id' element={<SingleMovie goToTopRated="/movies/toprated" forTv='Tv-Shows' />} />
             <Route path='similar/:id' element={<SingleMovie forTv='Tv-Shows' goTohome="/" />} />
+            
           </Route>
           {/* <Route path='movies/toprated' element={<SharedTopRatedMoviePage />}>
             

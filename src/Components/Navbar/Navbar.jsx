@@ -4,17 +4,13 @@ import '../Navbar/Navbar.css'
 const Navbar = () => {
 
   const showSubMenu = (e) => {
-    console.log(e);
     e.target.parentNode.nextElementSibling.style.display = 'initial'
-
   }
+
   const hideSubMenu = (e) => {
-
-
     e.target.parentNode.nextElementSibling.style.display = 'none'
-
-
   }
+
   return (
     <>
       <div className="nav d-flex gap-1 justify-content-between">

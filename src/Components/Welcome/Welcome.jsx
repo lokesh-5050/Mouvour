@@ -14,15 +14,14 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
   const inputMovieRef = useRef(null)
   const formSubmtBtn = useRef(null)
   const [getNowPlayingMovies, setGetNowPlayingMovies] = useState([]);
-  // console.log(forTv);
+  // 
   const handleSearch = async (e) => {
     e.preventDefault();
     setSuggestions([]);
-    console.log(searchText);
+
     setShowingDataFor(inputMovieRef.current.value)
-    console.log(inputMovieRef.current.value == 0);
     if (inputMovieRef.current.value == 0) {
-      console.log("no length");
+
       alert("Must write something!")
       // return;
     } else {
@@ -32,7 +31,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
         setGetNowPlayingMovies([])
         const { data } = await Axios.get(`https://api.themoviedb.org/3/search/tv?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
         const { results } = data
-        console.log(results);
+
         setmovieData(results);
         setLoader(false)
         setSearchText('')
@@ -40,7 +39,7 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
         setGetNowPlayingMovies([])
         const { data } = await Axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d978e8b4d35276a656ae12c2c4892803&query=${query}`)
         const { results } = data
-        console.log(results);
+
         setmovieData(results);
         setLoader(false)
         setSearchText('')
@@ -61,9 +60,6 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
   }
 
 
-  // useEffect((e) => {
-  //   setPage(1)
-  //   console.log(page + " i run first");
 
   // }, [])
 
@@ -83,7 +79,6 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
       const { results } = data
       setSuggestions(results)
     }
-
   }
 
   const onTypeSearchMovie = async (e) => {
@@ -95,23 +90,15 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
     } else if (inputMovieRef.current.value.length === 0) {
       setSuggestions([])
     }
-
-
   }
 
   const searchBySuggestion = async (f) => {
-    console.log(inputMovieRef.current.value);
     inputMovieRef.current.value = f.target.innerHTML
-    console.log(searchText);
-    console.log(inputMovieRef.current.value);
     handleSearch(f)
   }
 
-
-
   return (
     <>
-
       <div className="container" style={{ position: 'relative', top: '1vw' }}>
         <div className="container title_Welcome text-center w-50">
           <h3>Welcome To Mouvour</h3>
@@ -125,25 +112,17 @@ const Welcome = ({ setSearchText, searchText, movieData, setmovieData, loader, s
                   <h6 className='mx-2 mt-1 p-1' style={{ backgroundColor: '#dbd5d5' }}>{forTv ? e.original_name : e.original_title}</h6>
                 </div>
               )) : ''}
-
             </div>
             {/* suggestions section ends */}
             <button ref={formSubmtBtn} className="btn-dark btn mt-3" onClick={handleSearch}>Search</button>
           </form>
         </div>
-
         <div className="container mt-3 text-center">
           <h6> {showingDataFor.length > 0 ? `Showing Results for : ${showingDataFor}` : ''}</h6>
         </div>
         <hr />
-
-
         <div className={`container  d-flex gap-4 flex-wrap`} >
-
-
           {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing' /> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : (<div className='container p-5'><div className="container" style={{ display: 'flex', justifyContent: 'center' }} ><DotSpinner /></div></div>)}
-          {/* {getNowPlayingMovies.length > 0 ? <Movie data={getNowPlayingMovies} forTv={forTv} now_playing='now-playing' /> : movieData.length > 0 ? <Movie data={movieData} forTv={forTv} search='search' /> : <ProfileShimmer style={{boxShadow: '0 1px 2px 1px rgba(0, 0, 0, 0.08)'}}/>} */}
-
           <div className="container text-center " style={{ maxHeight: '1.8rem' }}>
             <Pagination data={getNowPlayingMovies} page={page} setPage={setPage} />
           </div>

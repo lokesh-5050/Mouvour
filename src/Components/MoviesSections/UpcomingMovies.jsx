@@ -14,22 +14,22 @@ const UpcomingMovies = ({ loader, setLoader }) => {
   //above two is non-sense just send your data in <Movie/> component as <Movie data={whatEverIsYourData}/> => data namm se bhej bas!
 
   let fetchUpcomingMovies = async () => {
-    console.log(UpcomingMoviesData);
+    
     if (!UpcomingMoviesData.length) {
       setLoader(true)
     }
     let { data } = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=${page}`)
     let { results } = data
-    console.log(results);
+    
     setUpcomingMoviesData(results)
     setLoader(false)
-    // console.log(UpcomingMoviesData);
+    // 
 
   }
 
   useEffect((e) => {
     setPage(1)
-    console.log(page + " i run first");
+    
 
   }, [])
 
@@ -39,7 +39,7 @@ const UpcomingMovies = ({ loader, setLoader }) => {
   }, [page])
 
 
-  // console.log(UpcomingMoviesData);
+  // 
   return (
     <>
       <div className="container d-flex gap-4 flex-wrap" style={{ padding: '3vw 2.2vw' }}>

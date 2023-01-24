@@ -16,16 +16,16 @@ const TopRatedMovies = ({ loader, setLoader }) => {
   //above two is non-sense just send your data in <Movie/> component as <Movie data={whatEverIsYourData}/> => data namm se bhej bas!
 
   let fetchTopRatedMovies = async () => {
-    console.log(topRatedMoviesData);
+    
     if (!topRatedMoviesData.length) {
       setLoader(true)
     }
     let { data } = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=${page}`)
     let { results } = data
-    console.log(results);
+    
     setTopRatedMoviesData(results)
     setLoader(false)
-    // console.log(topRatedMoviesData);
+    // 
 
   }
 
@@ -34,11 +34,11 @@ const TopRatedMovies = ({ loader, setLoader }) => {
   useEffect(() => {
     setTopRatedMoviesData([])
     fetchTopRatedMovies()
-    console.log("page changed" + page);
+    
   }, [page])
 
 
-  // console.log(topRatedMoviesData);
+  // 
   return (
     <>
       <div className="container TopRated d-flex gap-4 flex-wrap" style={{ padding: '3vw 2.2vw' }}>

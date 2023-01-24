@@ -17,9 +17,8 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
     const castsDiv = useRef(null);
     const [SimilarMovies, setSimilarMovies] = useState([]);
     let params = useParams()
-    console.log(params)
+
     let { id } = useParams();
-    console.log(id);
 
     const similar_movie_div = useRef(null);
 
@@ -32,30 +31,19 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
 
     let thisMovieData = async () => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
-        // console.log(data);
         setClickedMovieData(data)
-        console.log("data loaded successfully!");
-    
     }
 
     let thisMovieVideo = async () => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/videos?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
         let { results } = data;
-
-        // console.log(results);
-        await setMovieVideo(results)
-        console.log(results);
-
+        setMovieVideo(results)
     }
 
     const getCasts = async () => {
-        // https://api.themoviedb.org/3/tv/{tv_id}/credits?api_key=<<api_key>>&language=en-US
-
         let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/credits?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US`)
-        console.log(data);
         let { cast } = data;
         setCredits(cast);
-
     }
 
     useEffect(() => {
@@ -81,7 +69,7 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
 
     const findKey = async () => {
         let got = movieVideo.filter((e) => e.type === "Trailer")
-        console.log(got[0].key);
+
         if (got[0].key !== undefined) {
             setVideoKey(got[0].key)
         } else {
@@ -91,20 +79,20 @@ const SingleMovie = ({ goTohome, goToTopRated, goToUpcoming, goToDiscover, forTv
 
     const castsScrollRight = () => {
         castsDiv.current.scrollLeft = "1vw"
-        console.log("ru");
+
     }
 
     const getSimilarMovies = async (e) => {
         let { data } = await axios.get(`https://api.themoviedb.org/3/${forTv ? 'tv' : 'movie'}/${id}/similar?api_key=d978e8b4d35276a656ae12c2c4892803&language=en-US&page=1`)
         let { results } = data;
-        console.log(results);
+
         setSimilarMovies(results)
         setTimeout(() => {
             window.scrollTo(0, 210)
         }, 20);
     }
 
-    
+
 
     let renderMovieData = clickedMovieData?.id ? (<div className="box p-4" key={clickedMovieData.id}>
         <div className="d-flex gap-5 upperOne" >
